@@ -117,14 +117,14 @@ impl From<sqlx::Error> for AppError {
                 // Handle foreign key violations
                 if let Some(constraint) = db_err.constraint() {
                     if constraint.ends_with("_fkey") {
-                        return Self::BadRequest(format!("Invalid reference: {}", constraint));
+                        return Self::BadRequest(format!("Invalid reference: {constraint}"));
                     }
                 }
 
-                Self::InternalServerError(format!("Database error: {}", db_err))
+                Self::InternalServerError(format!("Database error: {db_err}"))
             }
             sqlx::Error::RowNotFound => Self::NotFound("Requested data not found".to_string()),
-            _ => Self::InternalServerError(format!("Database error: {}", err)),
+            _ => Self::InternalServerError(format!("Database error: {err}")),
         }
     }
 }
@@ -177,7 +177,7 @@ pub fn validation_error(message: &str) -> AppError {
 /// # Returns
 /// An `AppError` with status code 404 (Not Found)
 pub fn not_found_error(resource: &str, id: &str) -> AppError {
-    AppError::NotFound(format!("{} with ID {} not found", resource, id))
+    AppError::NotFound(format!("{resource} with ID {id} not found"))
 }
 
 // Helper function for conflict errors
