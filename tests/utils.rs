@@ -35,7 +35,16 @@ pub async fn create_test_app() -> (Router, PgPool) {
         // Reset the database for the test
         reset_test_database(&pool).await;
 
-        let app = degen::create_app(pool.clone());
+        let state = degen::AppState {
+            db_pool: pool.clone(),
+        };
+        let app = Router::new()
+            .route(
+                "/wallets",
+                axum::routing::post(degen::add_wallet).get(degen::list_wallets),
+            )
+            .route("/wallets/:id", axum::routing::get(degen::get_wallet))
+            .with_state(state);
         return (app, pool);
     }
 
