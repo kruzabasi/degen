@@ -1,0 +1,100 @@
+{
+  "info": {
+    "name": "Degen API",
+    "description": "API for managing cryptocurrency wallets",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET /wallets",
+      "item": [
+        {
+          "name": "List all wallets",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/wallets",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "wallets"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "POST /wallets",
+      "item": [
+        {
+          "name": "Create a new wallet",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/wallets",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "wallets"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"address\": \"0x742d35Cc6634C0532925a3b844Bc454e4438f44e\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "GET /wallets/{id}",
+      "item": [
+        {
+          "name": "Get a wallet by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/wallets/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "wallets",
+                "{id}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
