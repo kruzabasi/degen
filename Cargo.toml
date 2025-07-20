@@ -4,13 +4,23 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = "0.7"
+axum = { version = "0.6.20", features = ["json"] }
+tower-http = { version = "0.4.4", features = ["cors"] }
 sqlx = { version = "0.8.6", features = ["runtime-tokio", "tls-rustls", "macros", "postgres", "uuid", "chrono"] }
 tokio = { version = "1", features = ["full"] }
-uuid = { version = "1.10", features = ["v7"] }
+uuid = { version = "1.10", features = ["v7", "serde"] }
+bs58 = "0.4.0"
 serde = { version = "1.0", features = ["derive"] }
-utoipa = { version = "4", features = ["axum_extras"] }
-dotenvy = "0.15"
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+utoipa = { version = "3.0.0", features = ["axum_extras"] }
+utoipa-swagger-ui = { version = "3.0.0", features = ["axum"] }
+dotenv = "0.15"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+hyper = { version = "0.14", features = ["full"] }
 
 [dev-dependencies]
 reqwest = { version = "0.12.22", features = ["json", "rustls-tls"] }
+serde_json = "1.0"
+tower = { version = "0.5", features = ["util"] }

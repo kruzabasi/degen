@@ -1,10 +1,11 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Create the wallets table
+-- Create the wallets table with all columns including name
 CREATE TABLE wallets (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     address TEXT NOT NULL UNIQUE,
+    name TEXT,  -- Optional name for the wallet
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -48,7 +49,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Create triggers to update the updated_at column
+-- Create triggers to automatically update the updated_at column
 CREATE TRIGGER update_wallets_updated_at
 BEFORE UPDATE ON wallets
 FOR EACH ROW
@@ -58,3 +59,18 @@ CREATE TRIGGER update_transactions_updated_at
 BEFORE UPDATE ON transactions
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at_column();
+
+-- Document the schema
+COMMENT ON TABLE wallets IS 'Stores wallet information including Solana addresses';
+COMMENT ON COLUMN wallets.id IS 'Unique identifier for the wallet';
+COMMENT ON COLUMN wallets.address IS 'Wallet address (base58 encoded Solana public key)';
+COMMENT ON COLUMN wallets.name IS 'Optional descriptive name for the wallet';
+COMMENT ON COLUMN wallets.created_at IS 'Timestamp when the wallet was created';
+COMMENT ON COLUMN wallets.updated_at IS 'Timestamp when the wallet was last updated';
+
+COMMENT ON TABLE transactions IS 'Stores token transactions for wallets';
+COMMENT ON COLUMN transactions.wallet_id IS 'Reference to the wallet this transaction belongs to';
+COMMENT ON COLUMN transactions.token_address IS 'Contract address of the token';
+COMMENT ON COLUMN transactions.amount IS 'Amount of tokens transferred';
+COMMENT ON COLUMN transactions.buy_price_usd IS 'Price per token in USD at time of transaction';
+COMMENT ON COLUMN transactions.buy_price_sol IS 'Price per token in SOL at time of transaction';
