@@ -1,0 +1,20 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT table_name \n        FROM information_schema.tables \n        WHERE table_schema = 'public'\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "table_name",
+        "type_info": "Name"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      true
+    ]
+  },
+  "hash": "200d12431f0a40a56269cf035283d0583bfc0e7441225e2bd6221dd8bb209740"
+}
