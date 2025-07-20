@@ -132,9 +132,9 @@ pub async fn get_wallet(
         }
         None => {
             warn!("Wallet not found with ID: {wallet_id}");
-            Err(AppError::NotFound(
-                format!("Wallet with ID {wallet_id} not found")
-            ))
+            Err(AppError::NotFound(format!(
+                "Wallet with ID {wallet_id} not found"
+            )))
         }
     }
 }
