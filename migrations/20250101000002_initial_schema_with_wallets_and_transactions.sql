@@ -2,7 +2,8 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Create the wallets table with all columns including name
-CREATE TABLE wallets (
+-- Using IF NOT EXISTS to make the migration idempotent
+CREATE TABLE IF NOT EXISTS wallets (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     address TEXT NOT NULL UNIQUE,
     name TEXT,  -- Optional name for the wallet
@@ -11,10 +12,10 @@ CREATE TABLE wallets (
 );
 
 -- Create an index on the address field for faster lookups
-CREATE INDEX wallets_address_idx ON wallets (address);
+CREATE INDEX IF NOT EXISTS wallets_address_idx ON wallets (address);
 
--- Create the transactions table
-CREATE TABLE transactions (
+-- Create the transactions table with IF NOT EXISTS
+CREATE TABLE IF NOT EXISTS transactions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     wallet_id UUID NOT NULL REFERENCES wallets(id) ON DELETE CASCADE,
     token_address TEXT NOT NULL,
@@ -35,10 +36,19 @@ CREATE TABLE transactions (
         ON DELETE CASCADE
 );
 
--- Create indexes for faster lookups
-CREATE INDEX transactions_wallet_id_idx ON transactions(wallet_id);
-CREATE INDEX transactions_token_address_idx ON transactions(token_address);
-CREATE INDEX transactions_block_number_idx ON transactions(block_number);
+-- Create indexes for the transactions table with IF NOT EXISTS
+CREATE INDEX IF NOT EXISTS transactions_wallet_id_idx ON transactions (wallet_id);
+CREATE INDEX IF NOT EXISTS transactions_token_address_idx ON transactions (token_address);
+CREATE INDEX IF NOT EXISTS transactions_transaction_hash_idx ON transactions (transaction_hash);
+
+-- Ensure the name column exists in the wallets table (for backward compatibility)
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                  WHERE table_name = 'wallets' AND column_name = 'name') THEN
+        ALTER TABLE wallets ADD COLUMN name TEXT;
+    END IF;
+END $$;
 
 -- Create a function to update the updated_at column
 CREATE OR REPLACE FUNCTION update_updated_at_column()
