@@ -1,0 +1,32 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT column_name, data_type, is_nullable\n        FROM information_schema.columns\n        WHERE table_name = 'transactions'",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "column_name",
+        "type_info": "Name"
+      },
+      {
+        "ordinal": 1,
+        "name": "data_type",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "is_nullable",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "6cd0bb14985510198a58e4bf3edbeb4f2d1d42fe1c09a2a4245e4b601fa7dc1d"
+}

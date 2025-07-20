@@ -1,0 +1,32 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT column_name, data_type, is_nullable\n        FROM information_schema.columns\n        WHERE table_name = 'wallets'\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "column_name",
+        "type_info": "Name"
+      },
+      {
+        "ordinal": 1,
+        "name": "data_type",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "is_nullable",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "1cecdcdf36ed52ee019ee1a827a301db82560c3a05caac1e3536e3a2fe03e019"
+}
