@@ -23,22 +23,22 @@ pub async fn create_test_app() -> (Router, PgPool) {
 
     // In CI, use the provided database URL directly
     if std::env::var("CI").is_ok() {
-        let db_url = std::env::var("DATABASE_URL")
-            .expect("DATABASE_URL must be set in CI environment");
-        
+        let db_url =
+            std::env::var("DATABASE_URL").expect("DATABASE_URL must be set in CI environment");
+
         let pool = PgPoolOptions::new()
             .max_connections(5)
             .connect(&db_url)
             .await
             .expect("Failed to connect to database in CI");
-            
+
         // Reset the database for the test
         reset_test_database(&pool).await;
-        
+
         let app = degen::create_app(pool.clone());
         return (app, pool);
     }
-    
+
     // Local development: Create a new test database
     let db_url = std::env::var("TEST_DATABASE_URL")
         .or_else(|_| std::env::var("DATABASE_URL"))
