@@ -127,15 +127,12 @@ pub async fn get_wallet(
 
     match wallet {
         Some(wallet) => {
-            info!("Found wallet with ID: {}", wallet_id);
+            info!("Found wallet with ID: {wallet_id}");
             Ok(Json(wallet))
         }
         None => {
-            warn!("Wallet not found with ID: {}", wallet_id);
-            Err(AppError::NotFound(format!(
-                "Wallet with ID {} not found",
-                wallet_id
-            )))
+            warn!("Wallet not found with ID: {wallet_id}");
+            Err(AppError::NotFound(format!("Wallet with ID {wallet_id} not found")))
         }
     }
 }
