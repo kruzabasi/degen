@@ -98,7 +98,13 @@ jobs:
           done
       
       - name: Check code formatting
-        run: cargo fmt -- --check
+        run: |
+          # Check formatting with cargo fmt
+          echo "Checking code formatting with rustfmt..."
+          if ! cargo fmt -- --check; then
+            echo "::error::Code formatting issues found. Run 'cargo fmt' to fix them."
+            exit 1
+          fi
       
       - name: Run clippy
         run: cargo clippy -- -D warnings
