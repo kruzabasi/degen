@@ -128,6 +128,8 @@ jobs:
           
       - name: Clean up
         if: always()
+        env:
+          PGPASSWORD: ${{ env.POSTGRES_PASSWORD }}
         run: |
           # Clean up any test databases that might have been created
           psql -h localhost -U $POSTGRES_USER -c "DROP DATABASE IF EXISTS ${POSTGRES_DB}_test;"
