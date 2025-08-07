@@ -50,7 +50,7 @@ async fn setup_test_db() -> PgPool {
     let test_database_url = if let Some(pos) = database_url.rfind('/') {
         format!("{}/{}", &database_url[..pos], test_db_name)
     } else {
-        // If there's no '/', just append the test database name
+        // If there's no '/', append the test database name
         format!("{}/{}", database_url, test_db_name)
     };
 
@@ -158,7 +158,7 @@ async fn test_duplicate_wallet_address() {
     let wallet = create_test_wallet(&app, &wallet_address, None).await;
     assert_eq!(wallet.address, wallet_address);
 
-    // Second creation with same address should fail
+    // Second creation with the same address should fail
     let (status, body): (_, Value) = make_request::<_, Value>(
         &app,
         "POST",

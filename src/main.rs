@@ -166,8 +166,8 @@ async fn main() {
         .layer(cors);
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
-    println!("Server running at http://{addr}/docs");
-    println!("Swagger UI available at http://{addr}/swagger-ui");
+    println!("Server running at https://{addr}/docs");
+    println!("Swagger UI available at https://{addr}/swagger-ui");
 
     Server::bind(&addr)
         .serve(app.into_make_service())
