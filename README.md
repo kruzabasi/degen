@@ -82,6 +82,61 @@ Once the server is running, you can access:
 - **API Documentation**: http://localhost:3000/docs
 - **OpenAPI JSON**: http://localhost:3000/openapi.json
 
+## API Usage Examples
+
+### Example: Create a Wallet (curl)
+```bash
+curl -X POST http://localhost:3000/wallets \
+  -H 'Content-Type: application/json' \
+  -d '{"address": "3nQ1v...base58...", "name": "My Wallet"}'
+```
+**Sample Response:**
+```json
+{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "address": "3nQ1v...base58...",
+  "name": "My Wallet",
+  "created_at": "2025-07-19T17:00:00Z",
+  "updated_at": "2025-07-19T17:00:00Z"
+}
+```
+
+### Example: Get Wallet by ID (curl)
+```bash
+curl http://localhost:3000/wallets/<wallet_id>
+```
+
+### Example: List Wallets (curl)
+```bash
+curl http://localhost:3000/wallets
+```
+
+### Using Postman
+- Import the collection: `postman/degen-api.postman_collection.json`
+- Use the environment: `postman/degen-api.postman_environment.json`
+
+## Error Response Format
+All errors return JSON in the following format:
+```json
+{
+  "error": "Error message here",
+  "code": "error_code", // e.g. "conflict", "unprocessable_entity", "not_found"
+  // Optionally: "details": "..."
+}
+```
+**Example (duplicate wallet):**
+```json
+{
+  "error": "Wallet with this address already exists",
+  "code": "conflict"
+}
+```
+
+## OpenAPI & Postman Files
+- OpenAPI JSON: [`openapi.json`](openapi.json)
+- Postman Collection: [`postman/degen-api.postman_collection.json`](postman/degen-api.postman_collection.json)
+- Postman Environment: [`postman/degen-api.postman_environment.json`](postman/degen-api.postman_environment.json)
+
 ## Running Tests
 
 ```bash
