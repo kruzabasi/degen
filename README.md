@@ -22,7 +22,7 @@ A backend service for tracking Solana memecoin portfolios, built with Rust, Axum
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/degen.git
+git clone https://github.com/kruzabasi/degen.git
 cd degen
 ```
 
@@ -79,8 +79,8 @@ The API will be available at `http://localhost:3000`
 
 Once the server is running, you can access:
 
-- **Swagger UI**: http://localhost:3000/api-docs
-- **OpenAPI JSON**: http://localhost:3000/api-docs/json
+- **API Documentation**: http://localhost:3000/docs
+- **OpenAPI JSON**: http://localhost:3000/openapi.json
 
 ## Running Tests
 
